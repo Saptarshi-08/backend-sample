@@ -13,7 +13,7 @@ const connectDB = async () => {
     console.log("Database connected successfully.");
 
     // This will update the tables to match the models by dropping them.
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ alter: true });
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }

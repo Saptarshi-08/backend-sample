@@ -3,6 +3,7 @@ const express = require("express");
 const { Op } = require("sequelize");
 const Journal = require("../models/Journal");
 const authenticateToken = require("../middleware/authMiddleware");
+const User = require("../models/User");
 const router = express.Router();
 
 // Create a new journal entry (requires login)
@@ -15,6 +16,8 @@ router.post("/", authenticateToken, async (req, res) => {
       });
     }
 
+    console.log(req.body);
+
     const newJournal = await Journal.create({
       title,
       date,
@@ -24,6 +27,19 @@ router.post("/", authenticateToken, async (req, res) => {
       tags: tags || [],
       userId: req.user.id, // set from the token
     });
+    const countryPart =
+      date && location ? location.split(",").pop().trim() : null;
+
+    console.log(countryPart);
+
+    if (countryPart) {
+      const user = await User.findByPk(req.user.id);
+      if (!user.countriesVisited.includes(countryPart)) {
+        user.countriesVisited = [...user.countriesVisited, countryPart];
+        await user.save();
+      }
+    }
+    console.log(newJournal);
     res.status(201).json(newJournal);
   } catch (err) {
     console.error(err);

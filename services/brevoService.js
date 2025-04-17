@@ -32,6 +32,43 @@ const sendOTPEmail = async (recipientEmail, otp) => {
   }
 };
 
+async function sendPostcardEmail(recipientEmail, postcard) {
+  const { backgroundImage, message, location, fontStyle, stamp } = postcard;
+
+  // Simple HTML email showing front/back content
+  const htmlContent = `
+    <h2>You’ve got a new postcard!</h2>
+    <img src="${backgroundImage}" alt="Postcard front" style="max-width:600px;" /><br/>
+    <p><strong>Message:</strong> <span style="font-family:${fontStyle};">${message}</span></p>
+    <p><strong>Location:</strong> ${location}</p>
+    <p><strong>Stamp:</strong> ${stamp}</p>
+    <!-- You could embed a back‑image screenshot here if you send it up from the frontend -->
+  `;
+
+  const data = {
+    sender: { email: process.env.BREVO_SENDER_EMAIL },
+    to: [{ email: recipientEmail }],
+    subject: "You’ve received a Postcard!",
+    htmlContent,
+  };
+
+  try {
+    await axios.post("https://api.brevo.com/v3/smtp/email", data, {
+      headers: {
+        "api-key": process.env.BREVO_API_KEY,
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (err) {
+    console.error(
+      "Error sending postcard email:",
+      err.response?.data || err.message
+    );
+    throw new Error("Unable to send postcard email.");
+  }
+}
+
 module.exports = {
   sendOTPEmail,
+  sendPostcardEmail,
 };

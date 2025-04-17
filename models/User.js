@@ -15,21 +15,22 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
-      validate: {
-        len: [3, 30], // Ensure the username is between 3 and 30 characters
-      },
+      validate: { len: [3, 30] },
     },
     email: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
-      validate: {
-        isEmail: true,
-      },
+      validate: { isEmail: true },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    role: {
+      type: DataTypes.ENUM("REGULARS", "PROFESSIONALS", "NATIVES"),
+      allowNull: false,
+      defaultValue: "REGULARS",
     },
     isVerified: {
       type: DataTypes.BOOLEAN,
@@ -43,10 +44,28 @@ const User = sequelize.define(
       type: DataTypes.DATE,
       allowNull: true,
     },
-    role: {
-      type: DataTypes.ENUM("REGULARS", "PROFESSIONALS", "NATIVES"),
+
+    // —— NEW FIELDS BELOW ——
+    location: {
+      type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: "REGULARS",
+    },
+    countriesVisited: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+      defaultValue: [], // stores the list of countries the user has visited :contentReference[oaicite:0]{index=0}
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    profilePicture: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    coverImage: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {
