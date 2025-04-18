@@ -175,4 +175,17 @@ router.get("/users", async (req, res) => {
   }
 });
 
+router.post("/logout", (req, res) => {
+  try {
+    // If you're sending the JWT in an HTTP-only cookie named 'token', uncomment:
+    // res.clearCookie("token");
+    return res.status(200).json({ message: "Logged out successfully." });
+  } catch (error) {
+    console.error("Logout error:", error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error during logout." });
+  }
+});
+
 module.exports = router;
