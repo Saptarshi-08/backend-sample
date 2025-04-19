@@ -2,9 +2,45 @@
 const express = require("express");
 const { Op } = require("sequelize");
 const User = require("../models/User");
+const Journal = require("../models/Journal");
+const Postcard = require("../models/Postcard");
 const authenticateToken = require("../middleware/authMiddleware");
 
 const router = express.Router();
+
+router.get("/", authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id, {
+      attributes: [
+        "id",
+        "username",
+        "email",
+        "location",
+        "profilePicture",
+        "coverImage",
+        "countriesVisited",
+        "description",
+        "createdAt",
+      ],
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    const stats = {
+      journalEntries: await Journal.count({ where: { userId: user.id } }),
+      postcardsSent: await Postcard.count({ where: { senderId: user.id } }),
+      loresSaved: 8, // Replace with actual logic if needed
+      countriesVisited: user.countriesVisited.length,
+    };
+
+    res.json({ ...user.toJSON(), stats });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
 
 // PATCH /user/role — change the current user's role
 router.patch("/role", authenticateToken, async (req, res) => {
