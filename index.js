@@ -37,6 +37,9 @@ User.hasMany(Postcard, { as: "receivedPostcards", foreignKey: "recipientId" });
 Postcard.belongsTo(User, { as: "sender", foreignKey: "senderId" });
 Postcard.belongsTo(User, { as: "recipient", foreignKey: "recipientId" });
 
+User.hasMany(Lore, { as: "createdLore", foreignKey: "userId" });
+Lore.belongsTo(User, { as: "creator", foreignKey: "userId" });
+
 // Connect to the database and start the server
 connectDB().then(() => {
   app.listen(PORT, () => {

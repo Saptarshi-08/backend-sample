@@ -2,7 +2,6 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/database");
 const { v4: uuidv4 } = require("uuid");
-const Lore = require("./Lore");
 
 const User = sequelize.define(
   "User",
@@ -74,5 +73,4 @@ const User = sequelize.define(
   }
 );
 
-User.hasMany(Lore, { as: "createdLore", foreignKey: "userId" });
 module.exports = User;
