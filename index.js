@@ -9,6 +9,7 @@ const postcardRoutes = require("./routes/postcard");
 const loreRoutes = require("./routes/lore");
 const User = require("./models/User");
 const Postcard = require("./models/Postcard");
+const Lore = require("./models/Lore");
 require("dotenv").config();
 
 const app = express();
