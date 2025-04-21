@@ -26,6 +26,7 @@ router.post("/", authenticateToken, async (req, res) => {
       });
     }
 
+    // Create the new lore
     const newLore = await Lore.create({
       title,
       location,
@@ -35,12 +36,13 @@ router.post("/", authenticateToken, async (req, res) => {
       userId: req.user.id,
     });
 
-    // Include user data in response
+    // Fetch the newly created lore with the associated user
     const loreWithUser = await Lore.findByPk(newLore.id, {
       include: [
         {
           model: User,
-          attributes: ["username"],
+          as: "creator", // Specify the alias used in the association
+          attributes: ["username"], // Include only the fields you need
         },
       ],
     });
