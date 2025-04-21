@@ -40,4 +40,5 @@ const Lore = sequelize.define(
   }
 );
 
+Lore.belongsTo(User, { as: "creator", foreignKey: "userId" });
 module.exports = Lore;

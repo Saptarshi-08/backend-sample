@@ -73,4 +73,5 @@ const User = sequelize.define(
   }
 );
 
+User.hasMany(Lore, { as: "createdLore", foreignKey: "userId" });
 module.exports = User;
