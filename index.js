@@ -6,6 +6,7 @@ const authRoutes = require("./routes/auth"); // your existing auth routes
 const journalRoutes = require("./routes/journal"); // our new journal routes
 const userRoutes = require("./routes/user");
 const postcardRoutes = require("./routes/postcard");
+const loreRoutes = require("./routes/lore");
 const User = require("./models/User");
 const Postcard = require("./models/Postcard");
 require("dotenv").config();
