@@ -14,7 +14,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const cors = require("cors");
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: "https://hermesmer.vercel.app", credentials: true }));
 
 // Middlewares
 app.use(bodyParser.json());
