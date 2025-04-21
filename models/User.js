@@ -2,6 +2,7 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/database");
 const { v4: uuidv4 } = require("uuid");
+const Lore = require("./Lore");
 
 const User = sequelize.define(
   "User",
