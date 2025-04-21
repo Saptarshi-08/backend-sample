@@ -25,6 +25,7 @@ app.use("/", authRoutes);
 app.use("/journals", journalRoutes);
 app.use("/user", userRoutes);
 app.use("/postcards", postcardRoutes);
+app.use("/lore", loreRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Journals and Authentication API!");
