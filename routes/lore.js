@@ -59,7 +59,8 @@ router.get("/", async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ["username"],
+          as: "creator", // Specify the alias used in the association
+          attributes: ["username"], // Include only the fields you need
         },
       ],
       order: [["createdAt", "DESC"]],
