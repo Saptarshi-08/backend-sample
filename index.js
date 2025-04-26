@@ -17,7 +17,15 @@ const PORT = process.env.PORT || 3000;
 
 const cors = require("cors");
 app.use(
-  cors({ origin: ["https://hermesmer.vercel.app", "*"], credentials: true })
+  cors({
+    origin: [
+      "https://hermesmer.vercel.app",
+      "*",
+      "http://localhost:3001",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  })
 );
 
 // Middlewares
