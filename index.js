@@ -20,7 +20,7 @@ app.use(
   cors({
     origin: [
       "https://hermesmer.vercel.app",
-      "*",
+      "https://hermes-1-jet.vercel.app",
       "http://localhost:3001",
       "http://localhost:3000",
     ],
