@@ -21,6 +21,7 @@ app.use(
     origin: [
       "https://hermesmer.vercel.app",
       "https://hermes-1-jet.vercel.app",
+      "https://hermes-beyonders.vercel.app",
       "http://localhost:3001",
       "http://localhost:3000",
     ],
